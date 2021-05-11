@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+ 
+<body>
+
+<script>
+ var app = angular.module("myShoppingList",[]);
+ app.controller("myCtrl",function($scope){
+     $scope.products=["Mil","Bread"];
+     $scope.addItem=function(){
+        
+        $scope.errortext = "";
+    if (!$scope.addMe) {return;}
+    if ($scope.products.indexOf($scope.addMe) == -1) {
+      $scope.products.push($scope.addMe);
+    } else {
+      $scope.errortext = "The item is already in your shopping list.";
+    }
+     }
+     $scope.removeItem=function(product){
+        $scope.errortext = "";
+         $scope.products.splice(product,1);
+     }
+ });
+</script>
+
+ <div ng-app="myShoppingList" ng-controller="myCtrl">
+     <ul>
+         <li ng-repeat="product in products">{{product}} <button ng-click="removeItem($index)">Remove</button></li>
+         
+     </ul>
+     <input ng-model="addMe">
+     <button ng-click="addItem()">Add Item</button>
+     <p>{{errortext}}</p>
+ </div>
+
+<p>So far we have made an HTML list based on the items of an array.</p>
+
+</body>
+</html>
